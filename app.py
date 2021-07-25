@@ -7,16 +7,10 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '.env_sample')
 load_dotenv(dotenv_path)
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
-# ''.join([random.choice( string.ascii_uppercase + string.ascii_lowercase + string.digits) for n in range(size)]) 
-
-# '''CREATE TABLE urlused(rand6d varchar(10))'''
- 
-# '''CREATE TABLE urlstuff(rand6d varchar(10),url varchar(5000))'''
+SECRET_KEY = os.environ.get("secret_key")
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -28,8 +22,8 @@ def index():
     if request.method == "POST":
         givenURL_ = form.URLinput.data  
 
-        dbURLUsed = sqlite3.connect("urlUsed.db") 
-        dbURLnStuff = sqlite3.connect("urlStuff.db") 
+        dbURLUsed = "database_connection1"
+        dbURLnStuff = "database_connection2" 
 
         rand6durl = URLtoRand6d(givenURL_,dbURLUsed,dbURLnStuff)
         hostURL = request.url_root
@@ -40,18 +34,18 @@ def index():
 
 @app.route('/<getDwarfURL>')
 def gdURL(getDwarfURL):
-    dbURLUsed = sqlite3.connect("urlUsed.db") 
-    dbURLnStuff = sqlite3.connect("urlStuff.db")
+    dbURLUsed = "database_connection1"
+    dbURLnStuff = "database_connection2" 
     
     cursorForUsed = dbURLUsed.cursor()
-    cursorForUsed.execute(''' select * from urlused ''')
+    cursorForUsed.execute('''query for database1''')
     urls = cursorForUsed.fetchall()
     URLusedList = [str(i[0]) for i in urls]
     dbURLUsed.close()
 
     if str(getDwarfURL) in URLusedList:
         cursorForURLnStuff = dbURLnStuff.cursor()
-        cursorForURLnStuff.execute(''' select url from urlstuff where rand6d = "''' + getDwarfURL +'''"''' )
+        cursorForURLnStuff.execute('''query for database 2''' )
         reDirectURL = cursorForURLnStuff.fetchall() 
         return redirect(str(reDirectURL[0][0]))
     return render_template("error.html", year = date.today().year),404
