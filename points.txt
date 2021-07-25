@@ -1,0 +1,11 @@
+random 6 digit => url
+
+url to 5 parts
+
+5 parts + rand 6d => aes 
+
+rand6d
+
+rand6d | rand6d+fstff => aes
+
+aes | 5 parts 
