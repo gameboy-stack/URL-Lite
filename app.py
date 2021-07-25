@@ -27,13 +27,13 @@ def index():
 
         rand6durl = URLtoRand6d(givenURL_,dbURLUsed,dbURLnStuff)
         hostURL = request.url_root
-        dwarfurl = str(hostURL) + str(rand6durl)
-        return render_template("index.html", form=form, year=date.today().year, dwarfurl=dwarfurl)
+        URLLite = str(hostURL) + str(rand6durl)
+        return render_template("index.html", form=form, year=date.today().year, URLLite=URLLite)
 
     return render_template("index.html", form=form, year = date.today().year)
 
-@app.route('/<getDwarfURL>')
-def gdURL(getDwarfURL):
+@app.route('/<URLLite>')
+def gURLLite(URLLite):
     dbURLUsed = "database_connection1"
     dbURLnStuff = "database_connection2" 
     
@@ -43,7 +43,7 @@ def gdURL(getDwarfURL):
     URLusedList = [str(i[0]) for i in urls]
     dbURLUsed.close()
 
-    if str(getDwarfURL) in URLusedList:
+    if str(URLLite) in URLusedList:
         cursorForURLnStuff = dbURLnStuff.cursor()
         cursorForURLnStuff.execute('''query for database 2''' )
         reDirectURL = cursorForURLnStuff.fetchall() 

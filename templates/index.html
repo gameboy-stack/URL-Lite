@@ -17,14 +17,14 @@
             </div>
         </div>
         <div class="col-auto">
-            <button type="submit" id="shorturl" class="btn btn-secondary mb-3">Short</button>
+            <button type="submit" id="shorturl" class="btn btn-secondary mb-3" onclick="return URLLite()">Short</button>
         </div>
     </form>
-    {% if dwarfurl %}
+    {% if URLLite %}
     <div class="row g-3">
         <div class="col-md">
             <div class="input-group">
-                <input class="form-control" type="text" id="dwarfurl" value={{ dwarfurl }} aria-label="readonly input example" readonly>
+                <input class="form-control" type="text" id="urllite" value={{ URLLite }} aria-label="readonly input example" readonly>
             </div>
         </div>
         <div class="col-auto">
@@ -46,15 +46,15 @@
     document.getElementById("shorturl").disabled = true;
 </script>
 <script>
-    function DwarfURL(){
-        document.getElementById("URLForm").action = "url_for('dwarfurl')";
+    function URLLite(){
+        document.getElementById("URLForm").action = "{{ url_for('index') }}";
         document.getElementById("URLForm").submit;
 }
 </script>
-{% if dwarfurl %}
+{% if URLLite %}
 <script>
 function CopyFunction() {
-    var copyText = document.getElementById("dwarfurl");
+    var copyText = document.getElementById("urllite");
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     document.execCommand("copy");
