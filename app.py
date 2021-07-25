@@ -50,5 +50,3 @@ def gURLLite(URLLite):
         return redirect(str(reDirectURL[0][0]))
     return render_template("error.html", year = date.today().year),404
 
-if __name__ == "__main__":
-    app.run(debug=True,port=8080)
