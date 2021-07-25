@@ -1,6 +1,5 @@
 .env
 just.py
 __pycache__/
-procfile
 *.db
 points.txt
